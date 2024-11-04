@@ -6,6 +6,17 @@ class Attendance < ApplicationRecord
   validates :stripe_customer_id,
     presence: true, 
     uniqueness: true
+
+  private
+
+  def send_participation_email
+    EventMailer.participation_email(event).deliver_later
+  end
+
+
+  
+  
+  
 end
 
 
