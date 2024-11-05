@@ -1,7 +1,7 @@
 class Event < ApplicationRecord
-  belongs_to :organizer, class_name: 'User', foreign_key: 'user_id' # Organizer of the event
-  has_many :attendances
-  has_many :users, through: :attendances # Users attending the event
+  belongs_to :user  # L'événement appartient à un utilisateur (administrateur)
+  has_many :attendances  # Un événement peut avoir plusieurs participations
+  has_many :participants, through: :attendances, source: :user  # Les utilisateurs participants via les participations
 
   validates :start_date, 
     presence: true
@@ -31,6 +31,9 @@ class Event < ApplicationRecord
   validates :location, 
     presence: true
 
+  # Validation pour vérifier que l'événement a un organisateur
+  validates :user_id, presence: true
+
 
   private
 
@@ -44,13 +47,7 @@ class Event < ApplicationRecord
     errors.add(:start_date, "must be a coming date") if start_date <= Time.now
   end
 
+  
 
 end
 
-
-### Class_name explanation:
-  # Update the belongs_to :user association to clarify that this user is the event’s organizer.
-  # Use class_name: 'User' for this association, and give it an alias of organizer to make it clear in code.
-  # Use foreign_key to explicitly indicate the linking field.
-
-  # organizer: This association links the event to the user who created it. The class_name: 'User' and foreign_key: 'user_id' clarify that organizer refers to the user organizing the event.

@@ -1,0 +1,8 @@
+
+<h1>Liste de tous nos évènements :</h1>
+
+<% @events.each do |event| %>
+  <h2><%= event.title %></h2>
+  <h3><%= event.description %></h3>
+<% end %>
+

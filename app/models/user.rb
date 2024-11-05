@@ -1,9 +1,11 @@
 class User < ApplicationRecord
   after_create :send_welcome_email
 
-  has_many :attendances
-  has_many :events, through: :attendances #events the user is attending through participation
-  has_many :organized_events, class_name: 'Event', foreign_key: 'user_id' #events the user is organising 
+  has_many :events  # Un utilisateur peut administrer plusieurs événements
+  has_many :attendances  # Un utilisateur peut avoir plusieurs participations
+  has_many :events_attended, through: :attendances, source: :event  # Un utilisateur participe à plusieurs événements
+
+  has_many :events_administered, class_name: 'Event', foreign_key: 'user_id'
   
   validates :description, presence: true
 
@@ -20,10 +22,3 @@ class User < ApplicationRecord
 end
 
 
-
-###Class_name explanation:
-  # Define a has_many :organized_events association to represent the events the user organizes.
-  # Use class_name to refer to the Event model for organized_events.
-  # Use foreign_key to indicate that this relationship relies on the user_id in the events table.
-
-  # organized_events: This refers to the events the user organizes. Using class_name: 'Event' tells Rails that organized_events is associated with the Event model, and foreign_key: 'user_id' specifies that user_id in the events table should match the user’s ID.
