@@ -1,8 +1,22 @@
+<h1>Liste de tous nos évènements :</h1><br>
 
-<h1>Liste de tous nos évènements :</h1>
+<div class="row">
+  <% @events.each do |event| %>
+    <div class="col-md-4"> <!-- Ajustez le nombre de colonnes selon votre besoin -->
+      <div class="card mb-4"> <!-- Carte Bootstrap -->
+        <div class="card-body">
+          <h5 class="card-title"><%= event.title %></h5> 
+          <p class="card-text"><%= event.description %></p> 
+          <%= link_to "Voir les détails", event_path(event), class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div><br>
 
-<% @events.each do |event| %>
-  <h2><%= event.title %></h2>
-  <h3><%= event.description %></h3>
-<% end %>
+<h2>Tu veux proposer ton évènement ? c'est par ici</h2><br>
+<%= link_to "Crée ton évènement", new_event_path, class: "btn btn-secondary" %>
+
+
+
 

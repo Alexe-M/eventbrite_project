@@ -1,0 +1,19 @@
+<h1>Les infos de votre profil :</h1><br>
+<p> <strong>Prénom : </strong><%= @user.first_name%></p>
+<p> <strong>Nom de famille : </strong><%= @user.last_name%></p>
+<p> <strong>Description : </strong><%= @user.description%></p>
+<p> <strong>Email : </strong><%= @user.email%></p>
+<%= link_to "Modifier", edit_user_registration_path, class: "btn btn-primary" %>
+<br>
+
+
+<br><h1>Mes évènements :</h1>
+<% @events.each do |event| %>
+<p><strong><%= event.title %></strong></p>
+<%= link_to "Voir", event_path(event), class: "btn btn-info" %>
+<% end %>
+
+
+
+
+

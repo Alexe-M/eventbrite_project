@@ -5,7 +5,6 @@ class UserMailer < ApplicationMailer
     @user = user
     @url  = 'http://localhost:3000/login'
     mail(to: @user.email, subject: 'Welcome to Eventbrite!')
-
     
   end
 end

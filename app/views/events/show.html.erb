@@ -1,0 +1,9 @@
+<h1>Détails de l'évènement:</h1><br>
+<h2><%= @event.title %></h2>
+<p><strong><%= @event.description %></strong></p>
+<p><%=@event.start_date %></p>
+<p><strong> Durée :</strong> <%= @event.duration %> min</p>
+<p><strong>Lieu : </strong><%= @event.location%></p>
+<p><strong>Prix : </strong><%=@event.price%></p>
+<p><strong>Organisé par : </strong> <%= @event.user.first_name%></p>
+<button>Je participe ! </button>

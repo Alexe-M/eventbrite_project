@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
   after_create :send_welcome_email
 
   has_many :events  # Un utilisateur peut administrer plusieurs événements
@@ -6,12 +11,6 @@ class User < ApplicationRecord
   has_many :events_attended, through: :attendances, source: :event  # Un utilisateur participe à plusieurs événements
 
   has_many :events_administered, class_name: 'Event', foreign_key: 'user_id'
-  
-  validates :description, presence: true
-
-  validates :first_name, presence: true
-
-  validates :last_name, presence: true
 
   private 
 
