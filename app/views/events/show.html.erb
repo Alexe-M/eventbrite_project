@@ -1,9 +1,19 @@
 <h1>Détails de l'évènement:</h1><br>
 <h2><%= @event.title %></h2>
 <p><strong><%= @event.description %></strong></p>
-<p><%=@event.start_date %></p>
-<p><strong> Durée :</strong> <%= @event.duration %> min</p>
+<p><strong>Organisé par : </strong> <%= @event.user.email%></p>
+<p><strong>Total participant : </strong> <%= @event.participants.count%></p>
+<p><strong>Date de début:</strong> <%= @event.start_date.strftime("%d %B %Y à %H:%M") %></p>
 <p><strong>Lieu : </strong><%= @event.location%></p>
 <p><strong>Prix : </strong><%=@event.price%></p>
-<p><strong>Organisé par : </strong> <%= @event.user.first_name%></p>
-<button>Je participe ! </button>
+
+
+<% if user_signed_in? && @event.user != current_user && !@event.attendances.exists?(user_id: current_user) %>
+        <%= button_to "Participer à l'event", checkout_create_path(total: @event.price, event_id: @event.id), class: "btn btn-primary", data: {turbo: false} %>
+    <% elsif @event.attendances.exists?(user_id: current_user) %>
+        <p> Je suis déjà participant </p>
+    <% else %>
+        <p><%= link_to 'Tu souhaites rejoindre cet event ? Rejoins nous !', new_user_registration_path %></p>
+    <% end %>
+
+
